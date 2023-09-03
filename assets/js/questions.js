@@ -1,4 +1,4 @@
-const questions = [
+const questionsArea = [
     {
         questionText: "Which of the following is not an HTML tag?",
         choices: ["Body", "Head", "Doctype", "br"],
@@ -58,5 +58,5 @@ function shuffleQuestions(arr) {
     }
 }
 
-shuffleQuestions(questions);
-export default questions;
+shuffleQuestions(questionsArea);
+export default questionsArea;
