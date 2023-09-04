@@ -19,6 +19,35 @@ my script for the Coding Quiz.
 
 7. Export/Run function of question objects
 
+## Logic.js pseudocode
+1. Import questions array from the questions.js
+
+2. Define variables for current question index, user score, timer value, timer interval ID
+
+3. Function to start the quiz
+4. Load in variables
+5. Timer 
+
+6. Function for rendering questions
+7. Displaying the current question and choices
+8. Event listeners for answer choice buttons
+
+9. Function to user answer selection
+10. Checking if selection is correct
+11. Updating score and moving to next question
+12. Subtracting time if the answer is incorrect
+
+13. Function for timer (incorrect)
+14. Decrementing timer value
+15. Check if timer is zero, end quiz = true
+
+16. Function for end quiz
+17. Stop timer
+18. Displaying user score
+19. User score saving (initials and score)
+
+20. Event listener to start button to start quiz
+
 ## References 
 References and sources for questions are from:
 https://www.proprofs.com/quiz-school/story.php?title=3dq-how-well-do-you-know-front-end-developer-test
