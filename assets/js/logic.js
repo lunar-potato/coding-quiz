@@ -1,28 +1,108 @@
-// Import questions array from the questions.js
+let questions = window.questionsArea;
 
-// Define variables for current question index, user score,
-// timer value, timer interval ID
+let buttonStart = document.getElementById("start");
+let questionsEl = document.getElementById("questions");
+let timerEl = document.getElementById("time");
+let choicesEl = document.getElementById("choices");
+let userInitials = document.getElementById("initials");
+let buttonSubmit = document.getElementById("submit");
+let feedbackEl = document.getElementById("feedback");
+let highScores = document.querySelector(".scores a");
 
-// Function to start the quiz
-// Load in variables
-// Timer 
+let currentQuestIndex = 0;
+let timeLeft = 0;
+let score = 0;
+let timerInterval;
 
-// Function for rendering questions
-// Displaying the current question and choices
-// Event listeners for answer choice buttons
+function startQuiz() {
+    let startScreenEl = document.getElementById("start-screen");
+    let endScreenEl = document.getElementById("end-screen")
+    startScreenEl.setAttribute("class", "hide");
+    questionsEl.removeAttribute("class");
+    buttonStart.style.display = "none";
+    endScreenEl.classList.add("hide");
+    choicesEl.textContent = "";
 
-// Function to user answer selection
-// Checking if selection is correct
-// Updating score and moving to next question
-// Subtracting time if the answer is incorrect
+    currentQuestIndex = 0;
+    timeLeft = questions.length * 10;
+    score = 0;
+    timerInterval = setInterval(updateTimer, 1000);
 
-// Function for timer (incorrect)
-// Decrementing timer value
-// Check if timer is zero, end quiz = true
+    timerEl.textContent = timeLeft;
+    displayQuestion();
+}
 
-// Function for end quiz
-// Stop timer
-// Displaying user score
-// User score saving (initials and score)
+function displayQuestion() {
+    let currentQuestion = questions[currentQuestIndex];
+    let questionTitle = document.getElementById("question-title");
 
-// Event listener to start button to start quiz
+    questionTitle.textContent = currentQuestion.questionText;
+    choicesEl.innerHTML = "";
+
+    if (currentQuestIndex >= questions.length || timeLeft <= 0) {
+        endQuiz();
+        return;
+    }
+
+    currentQuestion.choices.forEach(function(choice, index) {
+        let buttonChoice = document.createElement("button");
+        buttonChoice.textContent = choice;
+        buttonChoice.addEventListener("click", () => checkAnswer(index));
+        choicesEl.appendChild(buttonChoice);
+    });
+}
+
+function checkAnswer(selectedI) {
+    let question = questions[currentQuestIndex];
+
+    if (selectedI === question.answerIndex) {
+        score += 10;
+        feedbackEl.textContent = "Correct!";
+    } else {
+        timeLeft -= 10;
+        feedbackEl.textContent = "Nope!";
+    }
+
+    feedbackEl.classList.remove("hide");
+    setTimeout(function() {
+        feedbackEl.textContent = "";
+        feedbackEl.classList.add("hide");
+    }, 1000);
+
+    currentQuestIndex++;
+    displayQuestion();
+}
+
+function updateTimer() {
+    timeLeft--;
+    if (timeLeft <= 0) {
+        endQuiz();
+    }
+    timerEl.textContent = `${timeLeft}`;
+}
+
+function endQuiz() {
+    clearInterval(timerInterval);
+
+    let endScreenEl = document.getElementById("end-screen");
+    endScreenEl.classList.remove("hide");
+    
+    let finalScoreEl = document.getElementById("final-score");
+    finalScoreEl.textContent = timeLeft;
+
+    questionsEl.setAttribute("class", "hide");
+}
+
+buttonStart.addEventListener("click", startQuiz);
+
+buttonSubmit.addEventListener("click", function() {
+    let initials = userInitials.value.trim();
+    if (initials !== "") {
+        alert(`Initials: ${initials}, Score: ${score}`);
+        userInitials.value = "";
+    }
+});
+
+highScores.addEventListener("click", function() {
+    alert("View leaderboard!");
+});

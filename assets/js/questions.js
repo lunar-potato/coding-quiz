@@ -1,4 +1,4 @@
-const questionsArea = [
+window.questionsArea = [
     {
         questionText: "Which of the following is not an HTML tag?",
         choices: ["Body", "Head", "Doctype", "br"],
@@ -53,10 +53,9 @@ const questionsArea = [
 
 function shuffleQuestions(arr) {
     for (let i = arr.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
+        let j = Math.floor(Math.random() * (i + 1));
         [arr[i], arr[j]] = [arr[j], arr[i]];
     }
 }
 
-shuffleQuestions(questionsArea);
-export default questionsArea;
+shuffleQuestions(window.questionsArea);
