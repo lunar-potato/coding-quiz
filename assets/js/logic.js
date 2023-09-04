@@ -39,7 +39,7 @@ function displayQuestion() {
     questionTitle.textContent = currentQuestion.questionText;
     choicesEl.innerHTML = "";
 
-    if (currentQuestIndex >= questions.length || timeLeft <= 0) {
+    if (currentQuestIndex >= questions.length) {
         endQuiz();
         return;
     }
@@ -47,7 +47,7 @@ function displayQuestion() {
     currentQuestion.choices.forEach(function(choice, index) {
         let buttonChoice = document.createElement("button");
         buttonChoice.textContent = choice;
-        buttonChoice.addEventListener("click", () => checkAnswer(index));
+        buttonChoice.addEventListener("click", () => checkAnswer(choice));
         choicesEl.appendChild(buttonChoice);
     });
 }
@@ -55,7 +55,7 @@ function displayQuestion() {
 function checkAnswer(selectedI) {
     let question = questions[currentQuestIndex];
 
-    if (selectedI === question.answerIndex) {
+    if (selectedI === question.answer) {
         score += 10;
         feedbackEl.textContent = "Correct!";
     } else {
