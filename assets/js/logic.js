@@ -72,7 +72,12 @@ function checkAnswer(selectedChoice) {
     }, 1000);
 
     currentQuestIndex++;
-    displayQuestion();
+    
+    if (currentQuestIndex >= questions.length || timeLeft <= 0) {
+        endQuiz();
+    } else {
+        displayQuestion();
+    }
 }
 
 function updateTimer() {
@@ -98,8 +103,8 @@ function endQuiz() {
 buttonStart.addEventListener("click", startQuiz);
 
 buttonSubmit.addEventListener("click", function() {
-    let initials = userInitials.value.trim();
-    if (initials !== "") {
+    let userInitials = initials.value.trim();
+    if (userInitials !== "") {
         saveScore(initials, score);
         userInitials.value = "";
     }

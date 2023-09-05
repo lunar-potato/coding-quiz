@@ -1,7 +1,7 @@
 let leaderboard = [];
 
 function saveScore(initials, score) {
-    leaderboard.push({initials, score});
+    leaderboard.push({ initials, score });
     localStorage.setItem('leaderboard', JSON.stringify(leaderboard));
 }
 
