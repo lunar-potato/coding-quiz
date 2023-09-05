@@ -69,7 +69,6 @@ function checkAnswer(selectedChoice) {
     let question = questions[currentQuestIndex];
 
     if (selectedChoice === question.answer) {
-        score += 10;
         feedbackEl.textContent = "Correct!";
         document.getElementById("correctSfx").play();
     } else {
@@ -108,6 +107,9 @@ function endQuiz() {
 
     let endScreenEl = document.getElementById("end-screen");
     endScreenEl.classList.remove("hide");
+
+    // Calculates the score according to the time left.
+    score = timeLeft;
     
     let finalScoreEl = document.getElementById("final-score");
     finalScoreEl.textContent = score;
