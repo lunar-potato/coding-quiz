@@ -1,3 +1,4 @@
+// Array of question area containing the questions, choices, and correct answer
 window.questionsArea = [
   {
     questionText: "Which of the following is not an HTML tag?",
@@ -79,18 +80,22 @@ window.questionsArea = [
   },
 ];
 
+// Function to shuffle order of the choices within questions 
 function shuffleQuestions(arr) {
   for (let i = arr.length - 1; i > 0; i--) {
+    // Generating random index and swapping to shuffle
     let j = Math.floor(Math.random() * (i + 1));
     [arr[i], arr[j]] = [arr[j], arr[i]];
   }
   return arr;
 }
 
+// Function to shuffle order of choices
 for (let i = 0; i < window.questionsArea.length; i++) {
   window.questionsArea[i].choices = shuffleQuestions(
     window.questionsArea[i].choices
   );
 }
 
+// Shuffling the order of questions in the entire array
 shuffleQuestions(window.questionsArea);

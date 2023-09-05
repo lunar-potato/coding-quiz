@@ -1,5 +1,7 @@
+// Importing questions.js
 let questions = window.questionsArea;
 
+// Defining variables to pull elements from HTML
 let buttonStart = document.getElementById("start");
 let questionsEl = document.getElementById("questions");
 let timerEl = document.getElementById("time");
@@ -9,12 +11,15 @@ let buttonSubmit = document.getElementById("submit");
 let feedbackEl = document.getElementById("feedback");
 let highScores = document.querySelector(".scores a");
 
+// Initializing variables for quiz state
 let currentQuestIndex = 0;
 let timeLeft = 0;
 let score = 0;
 let timerInterval;
 
+// Function to start quiz
 function startQuiz() {
+    // Hiding start screen to display questions
     let startScreenEl = document.getElementById("start-screen");
     let endScreenEl = document.getElementById("end-screen")
     startScreenEl.setAttribute("class", "hide");
@@ -23,15 +28,20 @@ function startQuiz() {
     endScreenEl.classList.add("hide");
     choicesEl.textContent = "";
 
+    // Initializing quiz variables
     currentQuestIndex = 0;
     timeLeft = questions.length * 10;
     score = 0;
-    timerInterval = setInterval(updateTimer, 1000);
 
+    // Starting timer
+    timerInterval = setInterval(updateTimer, 1000);
     timerEl.textContent = timeLeft;
+
+    // Displaying first question
     displayQuestion();
 }
 
+// Function to display question
 function displayQuestion() {
     let currentQuestion = questions[currentQuestIndex];
     let questionTitle = document.getElementById("question-title");
@@ -54,6 +64,7 @@ function displayQuestion() {
     });
 }
 
+// Function to check the user's answer
 function checkAnswer(selectedChoice) {
     let question = questions[currentQuestIndex];
 
@@ -82,6 +93,7 @@ function checkAnswer(selectedChoice) {
     }
 }
 
+// Function to update timer
 function updateTimer() {
     timeLeft--;
     if (timeLeft <= 0) {
@@ -90,6 +102,7 @@ function updateTimer() {
     timerEl.textContent = `${timeLeft}`;
 }
 
+// Function to end the quiz
 function endQuiz() {
     clearInterval(timerInterval);
 
@@ -102,6 +115,7 @@ function endQuiz() {
     questionsEl.setAttribute("class", "hide");
 }
 
+// Functionto save score to leaderboard local storage
 function saveScore(initials, score) {
     let leaderboard = JSON.parse(localStorage.getItem('leaderboard')) || [];
     leaderboard.push({ initials, score });
@@ -114,10 +128,10 @@ buttonSubmit.addEventListener("click", function() {
     let userInitials = initials.value.trim();
     if (userInitials !== "") {
         saveScore(userInitials, score);
-        highScores.click();
+        highScores.click(); // Redirect to highscore page
     }
 });
 
 highScores.addEventListener("click", function() {
-    window.location.href = "highscores.html";
+    window.location.href = "highscores.html"; // Redirect to highscore page
 });
