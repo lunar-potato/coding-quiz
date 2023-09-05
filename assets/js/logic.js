@@ -47,15 +47,17 @@ function displayQuestion() {
     currentQuestion.choices.forEach(function(choice) {
         let buttonChoice = document.createElement("button");
         buttonChoice.textContent = choice;
-        buttonChoice.addEventListener("click", () => checkAnswer(choice));
+        buttonChoice.addEventListener("click", function() {
+            checkAnswer(choice);
+        });
         choicesEl.appendChild(buttonChoice);
     });
 }
 
-function checkAnswer(selectedI) {
+function checkAnswer(selectedChoice) {
     let question = questions[currentQuestIndex];
 
-    if (selectedI === question.answer) {
+    if (selectedChoice === question.answer) {
         score += 10;
         feedbackEl.textContent = "Correct!";
     } else {
@@ -88,7 +90,7 @@ function endQuiz() {
     endScreenEl.classList.remove("hide");
     
     let finalScoreEl = document.getElementById("final-score");
-    finalScoreEl.textContent = timeLeft;
+    finalScoreEl.textContent = score;
 
     questionsEl.setAttribute("class", "hide");
 }
@@ -98,11 +100,11 @@ buttonStart.addEventListener("click", startQuiz);
 buttonSubmit.addEventListener("click", function() {
     let initials = userInitials.value.trim();
     if (initials !== "") {
-        alert(`Initials: ${initials}, Score: ${score}`);
+        saveScore(initials, score);
         userInitials.value = "";
     }
 });
 
 highScores.addEventListener("click", function() {
-    alert("View leaderboard!");
+    window.location.href = "highscores.html";
 });
