@@ -44,7 +44,7 @@ function displayQuestion() {
         return;
     }
 
-    currentQuestion.choices.forEach(function(choice, index) {
+    currentQuestion.choices.forEach(function(choice) {
         let buttonChoice = document.createElement("button");
         buttonChoice.textContent = choice;
         buttonChoice.addEventListener("click", () => checkAnswer(choice));
