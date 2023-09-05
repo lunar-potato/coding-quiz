@@ -1,10 +1,5 @@
 let leaderboard = [];
 
-function saveScore(initials, score) {
-    leaderboard.push({ initials, score });
-    localStorage.setItem('leaderboard', JSON.stringify(leaderboard));
-}
-
 function leaderboardDisplay() {
     let scoresList = document.getElementById("highscores");
     scoresList.innerHTML = "";
@@ -15,9 +10,9 @@ function leaderboardDisplay() {
         return b.score - a.score;
     });
 
-    scoreSort.forEach(function(entry, index) {
+    scoreSort.forEach(function(entry) {
         let listItem = document.createElement("li");
-        listItem.textContent = `${(index + 1)}. ${entry.initials} : ${entry.score}`;
+        listItem.textContent = `${entry.initials} : ${entry.score}`;
         scoresList.appendChild(listItem);
     });
 }

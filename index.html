@@ -10,7 +10,11 @@
   </head>
 
   <body>
+    <audio id="correctSfx" src="./assets/sfx/correct.wav"></audio>
+    <audio id="incorrectSfx" src="./assets/sfx/incorrect.wav"></audio>
+
     <div class="scores"><a href="highscores.html">View Highscores</a></div>
+
 
     <div class="timer">Time: <span id="time">0</span></div>
 
@@ -41,9 +45,8 @@
 
       <div id="feedback" class="feedback hide"></div>
     </div>
-
+    
     <script src="./assets/js/questions.js"></script>
-    <script src="./assets/js/scores.js"></script>
     <script src="./assets/js/logic.js"></script>
   </body>
 </html>
