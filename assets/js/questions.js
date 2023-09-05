@@ -93,5 +93,4 @@ for (let i = 0; i < window.questionsArea.length; i++) {
   );
 }
 
-console.log(window.questionsArea)
 shuffleQuestions(window.questionsArea);

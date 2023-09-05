@@ -60,9 +60,11 @@ function checkAnswer(selectedChoice) {
     if (selectedChoice === question.answer) {
         score += 10;
         feedbackEl.textContent = "Correct!";
+        document.getElementById("correctSfx").play();
     } else {
         timeLeft -= 10;
         feedbackEl.textContent = "Nope!";
+        document.getElementById("incorrectSfx").play();
     }
 
     feedbackEl.classList.remove("hide");
@@ -100,13 +102,19 @@ function endQuiz() {
     questionsEl.setAttribute("class", "hide");
 }
 
+function saveScore(initials, score) {
+    let leaderboard = JSON.parse(localStorage.getItem('leaderboard')) || [];
+    leaderboard.push({ initials, score });
+    localStorage.setItem('leaderboard', JSON.stringify(leaderboard));
+}
+
 buttonStart.addEventListener("click", startQuiz);
 
 buttonSubmit.addEventListener("click", function() {
     let userInitials = initials.value.trim();
     if (userInitials !== "") {
-        saveScore(initials, score);
-        userInitials.value = "";
+        saveScore(userInitials, score);
+        highScores.click();
     }
 });
 
